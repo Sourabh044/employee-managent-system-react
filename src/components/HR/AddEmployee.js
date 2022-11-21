@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react';
+
 
 const AddEmployee = () => {
     const intialState = {
@@ -13,19 +14,19 @@ const AddEmployee = () => {
           account: ''
         },
         userprofile: {
-          permanent_address: "s",
-          permanent_country: "s",
-          permanent_state: "s",
-          permanent_city: "s",
-          permanent_pincode: "s",
-          present_address: "s",
-          present_country: "s",
-          present_state: "s",
-          present_city: "s",
-          present_pincode: "s",
+          permanent_address: '',
+          permanent_country: '',
+          permanent_state: '',
+          permanent_city: '',
+          permanent_pincode: '',
+          present_address: '',
+          present_country: '',
+          present_state: '',
+          present_city: '',
+          present_pincode: '',
           gender: '',
           emergency_contact: '',
-          date_of_joining: "s",
+          date_of_joining: '',
           date_of_termination: '',
           pan_card_no: '',
           aadhaar_card: '',
@@ -43,10 +44,22 @@ const AddEmployee = () => {
       const onChangeUserProfile = (e)=>{
         setEmployeeProfile({...employeeprofile, [e.target.name]: e.target.value})
       }
-    
+      function getdate(date){
+        var ds = date
+        if (date != null){
+          ds = ds.split('T')
+          // console.log(ds[0])
+          return ds[0]
+        }
+      }
+    const addemployee = async (e) => {
+        e.preventDefault();
+        const emp = Object.assign({},employeeuser,employeeprofile)
+        console.log(emp)
+    }
     return (
         <>
-          <h1>Details of Employee: {employeeuser.first_name}, ID: {params.id}</h1>
+          <h1>Add New Employee</h1>
           <hr />
           <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 " >
             {/* <a href="{% url 'delete-employee' employee.id %}" onclick="return confirm('Are you sure you want to delete this employee?')" className="btn btn-danger m-2 float-end" name="delbutton" data-url="{% url 'delete-employee' employee.id %}"> <i className="fa fa-solid fa-user-slash"></i></a> */}
@@ -124,7 +137,7 @@ const AddEmployee = () => {
                 <label htmlFor="exampleInputEmail1" className="form-label">Blood Group</label>
                 <input type="text"  value={employeeprofile.blood_group===null?'':employeeprofile.blood_group} className="form-control" name="blood_group" onChange={onChangeUserProfile}/>
             </div>
-            <button type="submit" className="btn btn-primary mb-4" onClick={updateemployee}>Update</button>
+            <button type="submit" className="btn btn-primary mb-4" onClick={addemployee}>Add</button>
         </form>
     </div>
         </>

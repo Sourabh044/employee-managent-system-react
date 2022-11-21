@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import swal from 'sweetalert';
+
 const EmployeeEdit = (props) => {
-  const params = useParams()
+  const Navigate = useNavigate();
+  const params = useParams();
   const intialState = {
     user: {
       id: '',
@@ -76,6 +79,20 @@ const EmployeeEdit = (props) => {
       button: "Okay",
     });
   };
+
+  const deleteemployee = async (id) => {
+    const response = await fetch(`http://127.0.0.1:8000/api/HR/Employees/${id}/`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+    });
+    const json = await response.json();
+    console.log(json);
+    return json
+  };
   useEffect(() => {
     fetchemployee();
 },[]);
@@ -95,11 +112,33 @@ const EmployeeEdit = (props) => {
   const onChangeUserProfile = (e)=>{
     setEmployeeProfile({...employeeprofile, [e.target.name]: e.target.value})
   }
-
+  const handledelete = (id,name) => {
+    swal({
+      title: "Are you sure?",
+      text: "You want to delete "+name,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+          console.log(id)
+          const json = deleteemployee(id)
+          fetchemployee();
+            swal("Employee Deleted", {
+              icon: "success",
+            });
+            Navigate('/hr/employees');
+      } else {
+        // swal('safe')
+      }
+    });
+  }
 
   return (
     <>
       <h1>Details of Employee: {employeeuser.first_name}, ID: {params.id}</h1>
+      <a   onClick={e =>  handledelete(params.id,employeeuser.first_name)} className="btn btn-danger m-2 float-end" ><i className="fa fa-solid fa-user-slash"> Delete</i></a>
       <hr />
       <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 " >
         {/* <a href="{% url 'delete-employee' employee.id %}" onclick="return confirm('Are you sure you want to delete this employee?')" className="btn btn-danger m-2 float-end" name="delbutton" data-url="{% url 'delete-employee' employee.id %}"> <i className="fa fa-solid fa-user-slash"></i></a> */}

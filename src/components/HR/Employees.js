@@ -32,9 +32,9 @@ const Employees = (props) => {
         Authorization: `Token ${localStorage.getItem("token")}`,
       },
     });
-    const json = await response.json();
-    console.log(json);
-    return json
+    // const json = await response.json();
+    fetchemployee();
+    // return json
   };
   const handledelete = (id,name) => {
     swal({
@@ -44,11 +44,10 @@ const Employees = (props) => {
       buttons: true,
       dangerMode: true,
     })
-    .then((willDelete) => {
+    .then(async (willDelete) => {
       if (willDelete) {
           console.log(id)
-          const json = deleteemployee(id)
-          fetchemployee();
+          await deleteemployee(id)
             swal("Employee Deleted", {
               icon: "success",
             });
@@ -56,6 +55,7 @@ const Employees = (props) => {
         // swal('safe')
       }
     });
+    fetchemployee();
   }
   return employees.length > 0 ? (
     <div>
