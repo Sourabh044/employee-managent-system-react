@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 import UserContext from "./userContext";
 
 const UserState = (props) => {
@@ -44,7 +45,12 @@ const UserState = (props) => {
       }).then(response => response.json()).then(responseJson=>{
 
         if (!responseJson.token) {
-          return alert("Enter Valid Credentials");
+          return swal({
+            title: "Invalid Credentials",
+            text: "Username or Password not correct",
+            icon: "info",
+            button: "Login again",
+          });
         }
         setToken(responseJson.token);
         setAccount(responseJson.account);
@@ -55,6 +61,12 @@ const UserState = (props) => {
         localStorage.setItem("username", responseJson.username);
         localStorage.setItem("login", "true");
         setLogin(true);
+        return swal({
+          title: "Login Successfull",
+          text: `Welcome ${responseJson.username}`,
+          icon: "success",
+          button: "Continue",
+        });
       })
 
   };

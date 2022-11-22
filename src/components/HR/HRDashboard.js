@@ -36,12 +36,12 @@ const HRDashboard = ({children}) => {
                             <ul className="navbar-nav ms-auto mt-2 mt-lg-0">
                                 
                             <li className="nav-item">
-                                {login?<Link to='/' onClick={logout} className="nav-link active">Logout</Link>:
+                                {login?<Link to='/' onClick={logout} className="nav-link btn btn-primary text-light m-2">Logout</Link>:
                                 <Link to='/login' className="nav-link active">Login</Link>
                                 }
                             </li>
                                 <li className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                    <a className="nav-link dropdown-toggle btn btn-secondary text-light m-2" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                                     <div className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <a className="dropdown-item" href="#!">Action</a>
                                         <a className="dropdown-item" href="#!">Another action</a>

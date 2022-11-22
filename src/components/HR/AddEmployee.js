@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
 
 const AddEmployee = () => {
+    const Navigate = useNavigate()
     const intialState = {
         user: {
-          id: '',
           first_name: "",
           middle_name: "",
           last_name: "",
           username: "",
           email: "",
           phone_number: "",
-          account: ''
+          account: '',
+          password:'',
         },
         userprofile: {
           permanent_address: '',
@@ -35,15 +38,15 @@ const AddEmployee = () => {
         }
       }
     const [employeeuser, setEmployeeUser] = useState(intialState.user);
-    const [employeeprofile, setEmployeeProfile] = useState(intialState.userprofile);
+    // const [employeeprofile, setEmployeeProfile] = useState(intialState.userprofile);
     
     const onChangeUser = (e) => {
         setEmployeeUser({...employeeuser, [e.target.name]: e.target.value})
       }
     
-      const onChangeUserProfile = (e)=>{
-        setEmployeeProfile({...employeeprofile, [e.target.name]: e.target.value})
-      }
+    //   const onChangeUserProfile = (e)=>{
+    //     setEmployeeProfile({...employeeprofile, [e.target.name]: e.target.value})
+    //   }
       function getdate(date){
         var ds = date
         if (date != null){
@@ -54,8 +57,22 @@ const AddEmployee = () => {
       }
     const addemployee = async (e) => {
         e.preventDefault();
-        const emp = Object.assign({},employeeuser,employeeprofile)
-        console.log(emp)
+        // const emp = Object.assign({},employeeuser,employeeprofile)
+        // console.log(emp)
+        const response = await fetch(`http://127.0.0.1:8000/api/HR/Employees/`, {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Token ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify(employeeuser),
+          });
+          const json = await response.json();
+          console.log(json);
+          setEmployeeUser(json);
+          swal("Employee Created!", "Enter the Additional Details.", "success");
+          Navigate(`/hr/edit/${json.id}`)
     }
     return (
         <>
@@ -66,34 +83,40 @@ const AddEmployee = () => {
         <form>
             <div className="mb-3">
                 <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                <input type="email" value={employeeuser.email===null?'':employeeuser.email}  className="form-control" name="email" onChange={onChangeUser}></input>
+                <input type="email" value={employeeuser.email===null?'':employeeuser.email}  className="form-control" name="email" onChange={onChangeUser} required></input>
                 <div name="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div className="mb-3">
+                <label htmlFor="Password" className="form-label">Password</label>
+                <input type="password"  value={employeeuser.password===null?'':employeeuser.password} className="form-control" name="password" required  onChange={onChangeUser}/>
+            </div>
+            <div className="mb-3">
                 <label htmlFor="first_name" className="form-label">First name</label>
-                <input type="text" value={employeeuser.first_name===null?'':employeeuser.first_name} className="form-control" name="first_name" onChange={onChangeUser}/>
+                <input type="text" value={employeeuser.first_name===null?'':employeeuser.first_name} className="form-control" name="first_name" required onChange={onChangeUser}/>
             </div>
                 <div className="mb-3">
                 <label htmlFor="middle Name" className="form-label">Middle Name</label>
-                <input type="text" value={employeeuser.middle_name===null?'':employeeuser.middle_name} className="form-control" name="middle_name" onChange={onChangeUser}/>
+                <input type="text" value={employeeuser.middle_name===null?'':employeeuser.middle_name} className="form-control" name="middle_name" required onChange={onChangeUser}/>
             </div>
                 <div className="mb-3">
                 <label htmlFor="Last name" className="form-label">Last Name</label>
-                <input type="text" value={employeeuser.last_name===null?'':employeeuser.last_name} className="form-control" name="last_name" onChange={onChangeUser}/>
+                <input type="text" value={employeeuser.last_name===null?'':employeeuser.last_name} className="form-control" name="last_name" required onChange={onChangeUser}/>
             </div>
                 <div className="mb-3">
                 <label htmlFor="Username" className="form-label">Username</label>
-                <input type="text" value={employeeuser.username===null?'':employeeuser.username} className="form-control" name="username" onChange={onChangeUser}/>
+                <input type="text" value={employeeuser.username===null?'':employeeuser.username} className="form-control" name="username" required onChange={onChangeUser}/>
             </div>
                 <div className="mb-3">
                 <label htmlFor="Phone Number" className="form-label">Phone Number</label>
-                <input type="phone" value={employeeuser.phone_number===null?'':employeeuser.phone_number} className="form-control" name="phone_number" onChange={onChangeUser}/>
-            </div>
-                <div className="mb-3">
-                <label htmlFor="Account" className="form-label">Account</label>
-                <input type="text"  value={employeeuser.account===null?'':employeeuser.account} className="form-control" name="account" onChange={onChangeUser}/>
+                <input type="phone" value={employeeuser.phone_number===null?'':employeeuser.phone_number} className="form-control" name="phone_number" required onChange={onChangeUser}/>
             </div>
             <div className="mb-3">
+                <label htmlFor="Account" className="form-label">Account</label>
+                <input type="text"  value={employeeuser.account===null?'':employeeuser.account} className="form-control" name="account" required  onChange={onChangeUser}/>
+            </div>
+
+            
+            {/* <div className="mb-3">
                 <label htmlFor="Date of birth" className="form-label">Date Of Birth</label>
                 <input type="date"  value={employeeprofile.date_of_birth===''|null?'':getdate(employeeprofile.date_of_birth)}  className="form-control" name="date_of_birth" onChange={onChangeUserProfile}/>
             </div>
@@ -136,7 +159,7 @@ const AddEmployee = () => {
             <div className="mb-3">
                 <label htmlFor="exampleInputEmail1" className="form-label">Blood Group</label>
                 <input type="text"  value={employeeprofile.blood_group===null?'':employeeprofile.blood_group} className="form-control" name="blood_group" onChange={onChangeUserProfile}/>
-            </div>
+            </div> */}
             <button type="submit" className="btn btn-primary mb-4" onClick={addemployee}>Add</button>
         </form>
     </div>
