@@ -20,6 +20,7 @@ const HRDashboard = ({children}) => {
                 <div className="list-group list-group-flush">
                     <Link to='/hr' className={`list-group-item list-group-item-action list-group-item-light p-3 ${location.pathname==='/hr'?'active':''}`} >Home</Link>
                     <Link to='/hr/employees' className={`${location.pathname==='/hr/employees'?'active':''} list-group-item list-group-item-action list-group-item-light p-3 `} >Employees</Link>
+                    <Link to='/hr/leaves/' className={`${location.pathname==='/hr/leaves/'?'active':''} list-group-item list-group-item-action list-group-item-light p-3 `} >Leaves</Link>
                     <a className="list-group-item list-group-item-action list-group-item-light p-3" >Profile</a>
                     <a className="list-group-item list-group-item-action list-group-item-light p-3" >Status</a>
                 </div>

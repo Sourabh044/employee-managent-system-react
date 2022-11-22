@@ -76,7 +76,7 @@ const Employees = (props) => {
       </span>
       <hr />
       <div>
-        <table className="table">
+        <table className="table" style={{overflow : "scroll",height:'500px'}}>
           <thead>
             <tr>
               <th scope="col">id</th>
@@ -120,15 +120,8 @@ const Employees = (props) => {
       </div>
       <nav aria-label="Page navigation example">
         <ul className="pagination">
-          <li className="page-item">
-            <a onClick={() => {fetchemployee(employees.previous)}}
-              className={`page-link ${
-                employees.previous == null ? "disabled" : ""
-              }`}
-            >
-              Previous
-            </a>
-          </li>
+        
+        <li class="page-item"><a onClick={() => {fetchemployee(employees.previous)}} className={`page-link ${employees.previous == null ? "disabled" : ""}`} >Previous</a></li>
           <li className="page-item">
             {/* <a className="page-link" onClick={() => {fetchemployee(employees.next)}}>
               1
@@ -147,7 +140,7 @@ const Employees = (props) => {
           <li className="page-item">
             <a className={`page-link ${
                 employees.next == null ? "disabled" : ""
-              }`} onClick={() => {fetchemployee(employees.next)}}>Next</a>
+              }`} onClick={() => {fetchemployee(employees.next)}} href={() => false}>Next</a>
           </li>
         </ul>
         

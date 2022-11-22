@@ -17,7 +17,8 @@ const Employeedashboard = ({children}) => {
             <div className="border-end bg-white" id="sidebar-wrapper">
                 <div className="sidebar-heading border-bottom bg-light">Employee</div>
                 <div className="list-group list-group-flush">
-                    <a className="list-group-item list-group-item-action list-group-item-light p-3" >Shortcuts</a>
+                    <Link to='/employee' className="list-group-item list-group-item-action list-group-item-light p-3" >Home</Link>
+                    <Link to='/employee/leaves/' className="list-group-item list-group-item-action list-group-item-light p-3" >Leave</Link>
                     <a className="list-group-item list-group-item-action list-group-item-light p-3" >Overview</a>
                     <a className="list-group-item list-group-item-action list-group-item-light p-3" >Events</a>
                     <a className="list-group-item list-group-item-action list-group-item-light p-3" >Profile</a>
@@ -33,7 +34,7 @@ const Employeedashboard = ({children}) => {
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon"></span></button>
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav ms-auto mt-2 mt-lg-0">
-                            <li class="nav-item">
+                            <li className="nav-item">
                                 {login?<Link to='/' onClick={logout} className="nav-link active">Logout</Link>:
                                 <Link to='/login' className="nav-link active">Login</Link>
                                 }
