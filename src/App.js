@@ -18,7 +18,6 @@ function App() {
           <Routes>
             <Route path='/' element={<Login/>}></Route>
             {/* <Route path='/employee' element={<Employeedashboard><Home/></Employeedashboard>} /> */}
-            {/* <Route path='/hr' element={<HRDashboard><Home/></HRDashboard>} /> */}
             <Route path='/hr' element={<HRDashboard><Home/></HRDashboard>} />
             <Route path='/hr/employees' element={<HRDashboard ><Employees /></HRDashboard>} />            
             <Route path='/hr/edit/:id' element={<HRDashboard><EmployeeEdit/></HRDashboard>} />            

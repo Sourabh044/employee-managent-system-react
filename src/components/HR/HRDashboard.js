@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,Navigate,useLocation } from 'react-router-dom';
 import UserContext from '../../context/user/userContext';
-import { Navigate} from 'react-router-dom';
-// import Employees from './Employees';
+
 const HRDashboard = ({children}) => {
     const {login,logout,account} = useContext(UserContext)
+    const location = useLocation();
     const handle_sidebar = (e) =>{
             e.preventDefault();
             document.body.classList.toggle('sb-sidenav-toggled');
             localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+            console.log(location.pathname)
     }
 
     return (!login?<Navigate to='/' />:account===1?
@@ -17,10 +18,8 @@ const HRDashboard = ({children}) => {
             <div className="border-end bg-white" id="sidebar-wrapper">
                 <div className="sidebar-heading border-bottom bg-light">HR</div>
                 <div className="list-group list-group-flush">
-                    <Link to='/hr' className="list-group-item list-group-item-action list-group-item-light p-3" >Home</Link>
-                    <Link to='/hr/employees' className="list-group-item list-group-item-action list-group-item-light p-3" >Employees</Link>
-                    <a className="list-group-item list-group-item-action list-group-item-light p-3" >Overview</a>
-                    <a className="list-group-item list-group-item-action list-group-item-light p-3" >Events</a>
+                    <Link to='/hr' className={`list-group-item list-group-item-action list-group-item-light p-3 ${location.pathname==='/hr'?'active':''}`} >Home</Link>
+                    <Link to='/hr/employees' className={`${location.pathname==='/hr/employees'?'active':''} list-group-item list-group-item-action list-group-item-light p-3 `} >Employees</Link>
                     <a className="list-group-item list-group-item-action list-group-item-light p-3" >Profile</a>
                     <a className="list-group-item list-group-item-action list-group-item-light p-3" >Status</a>
                 </div>
