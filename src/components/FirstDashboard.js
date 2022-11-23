@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const FirstDashboard = ({children}) => {
+const FirstDashboard = ({ children }) => {
     // const comp = props.comp
-  return (
+    return (
         <div className="d-flex" id="wrapper">
             {/* <!-- Sidebar--> */}
             <div className="border-end bg-white" id="sidebar-wrapper">
@@ -46,7 +46,7 @@ const FirstDashboard = ({children}) => {
                 </div>
             </div>
         </div>
-  )
+    )
 }
 
 export default FirstDashboard

@@ -67,7 +67,7 @@ const Employees = (props) => {
   };
   return employees.results.length > 0 ? (
     <div>
-      <h1>Employees Here</h1>
+      <h1 className='m-2 text-center'>Employees Here</h1>
       <span>
         <Link to="/hr/add/" className="btn btn-primary m-2 float-end">
           {" "}
@@ -102,14 +102,14 @@ const Employees = (props) => {
                   <td>{employees.phone_number}</td>
                   <td>
                     <Link to={{ pathname: `/hr/edit/${employees.id}` }}>
-                      <i className="fa fa-user-pen "></i>
+                      <i style={{cursor:'pointer'}} className="fa fa-user-pen "></i>
                     </Link>{" "}
                     |{" "}
                     <i
                       onClick={(e) =>
                         handledelete(employees.id, employees.first_name)
                       }
-                      className="fa fa-solid fa-user-slash text-danger"
+                      style={{cursor:'pointer'}} className="fa fa-solid fa-user-slash text-danger"
                     ></i>
                   </td>
                 </tr>
@@ -121,7 +121,7 @@ const Employees = (props) => {
       <nav aria-label="Page navigation example">
         <ul className="pagination">
         
-        <li class="page-item"><a onClick={() => {fetchemployee(employees.previous)}} className={`page-link ${employees.previous == null ? "disabled" : ""}`} >Previous</a></li>
+        <li className="page-item"><a style={{cursor:'pointer'}} onClick={() => {fetchemployee(employees.previous)}} className={`page-link ${employees.previous == null ? "disabled" : ""}`} >Previous</a></li>
           <li className="page-item">
             {/* <a className="page-link" onClick={() => {fetchemployee(employees.next)}}>
               1
@@ -140,14 +140,14 @@ const Employees = (props) => {
           <li className="page-item">
             <a className={`page-link ${
                 employees.next == null ? "disabled" : ""
-              }`} onClick={() => {fetchemployee(employees.next)}} href={() => false}>Next</a>
+              }`} style={{cursor:'pointer'}} onClick={() => {fetchemployee(employees.next)}} href={() => false}>Next</a>
           </li>
         </ul>
         
       </nav>
     </div>
   ) : (
-    <h1>No Employee here</h1>
+    <h1 className="m-2 text-center">No Employee here</h1>
   );
 };
 export default Employees;

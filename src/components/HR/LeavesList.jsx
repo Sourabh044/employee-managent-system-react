@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 
 
 const LeavesList = () => {
@@ -28,6 +29,9 @@ const LeavesList = () => {
       console.log(json);
       setLeaves(json);
     };
+    const singleleave = (id) =>{
+      swal(id,'info')
+    }
   
     const handledelete = async (id) =>{
       swal({
@@ -38,7 +42,7 @@ const LeavesList = () => {
         dangerMode: true,
       }).then(async (willDelete) => {
         if (willDelete) {
-      await fetch(`http://127.0.0.1:8000/api/EMP/Leaves/${id}/`, {
+      await fetch(`http://127.0.0.1:8000/api/HR/Leaves/${id}/`, {
         method: "DELETE",
         headers: {
           Accept: "application/json",
@@ -76,9 +80,9 @@ const LeavesList = () => {
           <table className="table" style={{overflow : "scroll",height:'500px'}}>
             <thead>
               <tr>
-                <th scope="col">id</th>
-                <th scope="col">approved</th>
                 <th scope="col">Date</th>
+                <th scope="col">Approved Status</th>
+                <th scope="col">Name</th>
                 <th scope="col">Type</th>
                 <th scope="col">Reason</th>
                 <th scope="col">Actions</th>
@@ -88,12 +92,12 @@ const LeavesList = () => {
               {leaves.results.map((leave) => {
                 return (
                   <tr key={leave.id}>
-                    <th scope="row">{leave.id}</th>
+                    <th scope="row"><Link to= {{pathname:`/hr/leave/${leave.id}`,}}>{leave.date}</Link></th>
                     <td scope="row">{leave.approved?'Approved':'Not Approved'}</td>
-                    <td>{leave.date}</td>
+                    <td>{leave.name}</td>
                     <td>{leave.type==1?'Paid':'UnPaid'}</td>
                     <td>{leave.reason?leave.reason:'No Reason Specified'}</td>
-                    <td><i onClick={(e) =>handledelete(leave.id)} className="fa fa-solid fa-envelope text-danger"> Delete</i>
+                    <td><i onClick={(e) =>handledelete(leave.id)} style={{cursor:'pointer'}} className="fa fa-solid fa-envelope text-danger"> Delete</i>
                     </td>
                   </tr>
                 );
@@ -133,7 +137,10 @@ const LeavesList = () => {
       </div>
     ) : (
       <div className="container">
-        <h1 className='text-center'>No Leaves here</h1>
+        <h1 className='m-2 text-center'>No Leaves here</h1>
+        <Link to="/employee/apply-leave/" className="btn btn-primary m-2 container">
+            <i className="fa fa-solid fa-plus"></i>Apply leave
+          </Link>
       </div>
     );
   

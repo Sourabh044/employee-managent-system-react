@@ -1,3 +1,4 @@
+// require('dotenv').config();
 import React, { Component, useState } from 'react';
 import './App.css';
 import Home from './components/Home';
@@ -13,6 +14,7 @@ import AddEmployee from './components/HR/AddEmployee';
 import LeaveApply from './components/Employee/LeaveApply';
 import Leaves from './components/Employee/Leaves';
 import LeavesList from './components/HR/LeavesList';
+import SingleLeave from './components/HR/SingleLeave';
 
 function App() {
   const [loading,setLoading] = useState(false);
@@ -27,6 +29,7 @@ function App() {
             <Route path='/hr/edit/:id' element={<HRDashboard><EmployeeEdit/></HRDashboard>} />            
             <Route path='/hr/add/' element={<HRDashboard><AddEmployee/></HRDashboard>} />  
             <Route path='/hr/leaves/' element={<HRDashboard><LeavesList/></HRDashboard>} />  
+            <Route path='/hr/leave/:id' element={<HRDashboard><SingleLeave/></HRDashboard>} />  
                       {/* Employee Urls Start  */}
             <Route path='/employee' element={<Employeedashboard><Home/></Employeedashboard>} />
             <Route path='/employee/leaves/' element={<Employeedashboard><Leaves/></Employeedashboard>} />            
