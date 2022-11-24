@@ -50,7 +50,7 @@ const Profile = (props) => {
   );
   const fetchemployee = async () => {
     const response = await fetch(
-      `http://127.0.0.1:8000/api/${props.type}/${id}/`,
+      `${process.env.REACT_APP_API_URL}/api/${props.type}/${id}/`,
       {
         method: "GET",
         headers: {
@@ -71,7 +71,7 @@ const Profile = (props) => {
     const emp = Object.assign({}, employeeuser, employeeprofile);
     console.log(emp);
     const response = await fetch(
-      `http://127.0.0.1:8000/api/${props.type}/${id}/`,
+      `${process.env.REACT_APP_API_URL}/api/${props.type}/${id}/`,
       {
         method: "PATCH",
         headers: {
@@ -96,7 +96,7 @@ const Profile = (props) => {
 
   const deleteemployee = async (id) => {
     const response = await fetch(
-      `http://127.0.0.1:8000/api/${props.type}/${id}/`,
+      `${process.env.REACT_APP_API_URL}/api/${props.type}/${id}/`,
       {
         method: "DELETE",
         headers: {
