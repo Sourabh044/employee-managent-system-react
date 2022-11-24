@@ -37,7 +37,7 @@ const Login = () => {
       <div className="d-flex justify-content-center">
         <a className='text-dark' href='https://github.com/Sourabh044/' rel="noreferrer" target='_blank' ><h1><i className="fa-brands fa-github m-2"></i></h1></a>
         <h1 className="text-muted">|</h1>
-        <a className='text-dark' href='https://github.com/Sourabh044/' rel="noreferrer" target='_blank' ><h1><i className="fa-brands fa-linkedin m-2"></i></h1></a>
+        <a className='text-dark' href='https://www.linkedin.com/in/sourabh044/' rel="noreferrer" target='_blank' ><h1><i className="fa-brands fa-linkedin m-2"></i></h1></a>
       </div>
       <hr style={{ 'fontWeight': 'bold' }} />
       <div className="container">
