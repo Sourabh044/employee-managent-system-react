@@ -129,38 +129,11 @@ const Profile = (props) => {
   const onChangeUserProfile = (e) => {
     setEmployeeProfile({ ...employeeprofile, [e.target.name]: e.target.value });
   };
-  const handledelete = (id, name) => {
-    swal({
-      title: "Are you sure?",
-      text: "You want to delete " + name,
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        console.log(id);
-        const json = deleteemployee(id);
-        fetchemployee();
-        swal("Employee Deleted", {
-          icon: "success",
-        });
-        Navigate("/hr/employees");
-      } else {
-        // swal('safe')
-      }
-    });
-  };
   return (
     <div>
       <h1>
         Details of Employee: {employeeuser.first_name}, ID: {id}
       </h1>
-      <a
-        onClick={(e) => handledelete(params.id, employeeuser.first_name)}
-        className="btn btn-danger m-2 float-end"
-      >
-        <i className="fa fa-solid fa-user-slash"> Delete</i>
-      </a>
       <hr />
       <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
         <form>

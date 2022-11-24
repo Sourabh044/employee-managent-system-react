@@ -5,16 +5,16 @@ import swal from "sweetalert";
 const Employees = (props) => {
   const InitialState = {
     count: null,
-    next: "http://127.0.0.1:8000/api/HR/Employees/",
+    next: "${process.env.REACT_APP_API_URL}api/HR/Employees/",
     previous: null,
-    results:[],
-    page:1,
-    pagecount:1,
+    results: [],
+    page: 1,
+    pagecount: 1,
   }
   const [employees, setEmployees] = useState(InitialState);
   const fetchemployee = async (url) => {
     if (url === undefined) {
-      url = `http://127.0.0.1:8000/api/HR/Employees/`
+      url = `${process.env.REACT_APP_API_URL}api/HR/Employees/`
     }
     const response = await fetch(url, {
       method: "GET",
@@ -25,12 +25,12 @@ const Employees = (props) => {
       },
     });
     const json = await response.json();
-    json.pagecount = Math.ceil(employees.count/10)
+    json.pagecount = Math.ceil(employees.count / 10)
     console.log(json);
     setEmployees(json);
   };
   useEffect(() => {
-  //  console.log(employees)
+    //  console.log(employees)
   }, [employees]);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const Employees = (props) => {
   }, []);
 
   const deleteemployee = async (id) => {
-    await fetch(`http://127.0.0.1:8000/api/HR/Employees/${id}/`, {
+    await fetch(`${process.env.REACT_APP_API_URL}api/HR/Employees/${id}/`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -76,7 +76,7 @@ const Employees = (props) => {
       </span>
       <hr />
       <div>
-        <table className="table" style={{overflow : "scroll",height:'500px'}}>
+        <table className="table" style={{ overflow: "scroll", height: '500px' }}>
           <thead>
             <tr>
               <th scope="col">id</th>
@@ -102,14 +102,14 @@ const Employees = (props) => {
                   <td>{employees.phone_number}</td>
                   <td>
                     <Link to={{ pathname: `/hr/edit/${employees.id}` }}>
-                      <i style={{cursor:'pointer'}} className="fa fa-user-pen "></i>
+                      <i style={{ cursor: 'pointer' }} className="fa fa-user-pen "></i>
                     </Link>{" "}
                     |{" "}
                     <i
                       onClick={(e) =>
                         handledelete(employees.id, employees.first_name)
                       }
-                      style={{cursor:'pointer'}} className="fa fa-solid fa-user-slash text-danger"
+                      style={{ cursor: 'pointer' }} className="fa fa-solid fa-user-slash text-danger"
                     ></i>
                   </td>
                 </tr>
@@ -120,8 +120,8 @@ const Employees = (props) => {
       </div>
       <nav aria-label="Page navigation example">
         <ul className="pagination">
-        
-        <li className="page-item"><a style={{cursor:'pointer'}} onClick={() => {fetchemployee(employees.previous)}} className={`page-link ${employees.previous == null ? "disabled" : ""}`} >Previous</a></li>
+
+          <li className="page-item"><a style={{ cursor: 'pointer' }} onClick={() => { fetchemployee(employees.previous) }} className={`page-link ${employees.previous == null ? "disabled" : ""}`} >Previous</a></li>
           <li className="page-item">
             {/* <a className="page-link" onClick={() => {fetchemployee(employees.next)}}>
               1
@@ -138,12 +138,11 @@ const Employees = (props) => {
             </a> */}
           </li>
           <li className="page-item">
-            <a className={`page-link ${
-                employees.next == null ? "disabled" : ""
-              }`} style={{cursor:'pointer'}} onClick={() => {fetchemployee(employees.next)}} href={() => false}>Next</a>
+            <a className={`page-link ${employees.next == null ? "disabled" : ""
+              }`} style={{ cursor: 'pointer' }} onClick={() => { fetchemployee(employees.next) }} href={() => false}>Next</a>
           </li>
         </ul>
-        
+
       </nav>
     </div>
   ) : (

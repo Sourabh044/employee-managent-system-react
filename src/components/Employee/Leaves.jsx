@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Leaves = () => {
+const Leaves = (props) => {
   const InitialState = {
     count: 0,
     next: null,
@@ -12,7 +12,7 @@ const Leaves = () => {
 
   const fetchleaves = async (url) => {
     if (url === undefined) {
-      url = `http://127.0.0.1:8000/api/${props.type}/Leave/`;
+      url = `${process.env.REACT_APP_API_URL}api/EMP/Leave/`;
     }
     const response = await fetch(url, {
       method: "GET",
@@ -37,7 +37,7 @@ const Leaves = () => {
       dangerMode: true,
     }).then(async (willDelete) => {
       if (willDelete) {
-        await fetch(`http://127.0.0.1:8000/api/EMP/Leave/${id}/`, {
+        await fetch(`${process.env.REACT_APP_API_URL}api/EMP/Leave/${id}/`, {
           method: "DELETE",
           headers: {
             Accept: "application/json",

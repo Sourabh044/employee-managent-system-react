@@ -32,7 +32,7 @@ const UserState = (props) => {
 
   // User login function
   const auth = async (credentials) => {
-    await fetch(`http://127.0.0.1:8000/token/`, {
+    await fetch(process.env.REACT_APP_API_URL + "token/", {
       method: "POST",
       headers: {
         Accept: "application/json",

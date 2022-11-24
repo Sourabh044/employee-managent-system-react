@@ -13,7 +13,7 @@ const SingleLeave = () => {
   });
   const fetchleave = async () => {
     const response = await fetch(
-      `http://127.0.0.1:8000/api/HR/Leaves/${params.id}/`,
+      `${process.env.REACT_APP_API_URL}api/HR/Leaves/${params.id}/`,
       {
         method: "GET",
         headers: {
@@ -29,7 +29,7 @@ const SingleLeave = () => {
   };
   const updateleave = async () => {
     const response = await fetch(
-      `http://127.0.0.1:8000/api/HR/Leaves/${params.id}/`,
+      `${process.env.REACT_APP_API_URL}api/HR/Leaves/${params.id}/`,
       {
         method: "PATCH",
         headers: {
