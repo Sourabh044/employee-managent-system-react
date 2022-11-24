@@ -1,28 +1,28 @@
 import React, { useContext } from 'react';
-import { Link,Navigate,useLocation } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import UserContext from '../../context/user/userContext';
 
-const HRDashboard = ({children}) => {
-    const {login,logout,account} = useContext(UserContext)
+const HRDashboard = ({ children }) => {
+    const { login, logout, account } = useContext(UserContext)
     const location = useLocation();
-    const handle_sidebar = (e) =>{
-            e.preventDefault();
-            document.body.classList.toggle('sb-sidenav-toggled');
-            localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
-            console.log(location.pathname)
+    const handle_sidebar = (e) => {
+        e.preventDefault();
+        document.body.classList.toggle('sb-sidenav-toggled');
+        localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+        console.log(location.pathname)
     }
 
-    return (!login?<Navigate to='/' />:account===1?
-    <div className="d-flex" id="wrapper">
+    return (!login ? <Navigate to='/' /> : account === 1 ?
+        <div className="d-flex" id="wrapper">
             {/* <!-- Sidebar--> */}
             <div className="border-end bg-white" id="sidebar-wrapper">
                 <div className="sidebar-heading border-bottom bg-light">HR</div>
                 <div className="list-group list-group-flush">
-                    <Link to='/hr' className={`list-group-item list-group-item-action list-group-item-light p-3 ${location.pathname==='/hr'?'active':''}`} >Home</Link>
-                    <Link to='/hr/employees' className={`${location.pathname==='/hr/employees'?'active':''} list-group-item list-group-item-action list-group-item-light p-3 `} >Employees</Link>
-                    <Link to='/hr/leaves/' className={`${location.pathname==='/hr/leaves/'?'active':''} list-group-item list-group-item-action list-group-item-light p-3 `} >Leaves</Link>
-                    <a className="list-group-item list-group-item-action list-group-item-light p-3" >Profile</a>
-                    <a className="list-group-item list-group-item-action list-group-item-light p-3" >Status</a>
+                    <Link to='/hr' className={`list-group-item list-group-item-action list-group-item-light p-3 ${location.pathname === '/hr' ? 'active' : ''}`} >Home</Link>
+                    <Link to='/hr/employees' className={`${location.pathname === '/hr/employees' ? 'active' : ''} list-group-item list-group-item-action list-group-item-light p-3 `} >Employees</Link>
+                    <Link to='/hr/leaves/' className={`${location.pathname === '/hr/leaves/' ? 'active' : ''} list-group-item list-group-item-action list-group-item-light p-3 `} >Leaves</Link>
+                    <Link to='/hr/profile/' className={`${location.pathname === '/hr/profile/' ? 'active' : ''} list-group-item list-group-item-action list-group-item-light p-3 `} >Profile</Link>
+                    {/* <a className="list-group-item list-group-item-action list-group-item-light p-3" >Status</a> */}
                 </div>
             </div>
             {/* <!-- Page content wrapper--> */}
@@ -34,13 +34,13 @@ const HRDashboard = ({children}) => {
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon"></span></button>
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav ms-auto mt-2 mt-lg-0">
-                                
-                            <li className="nav-item">
-                                {login?<Link to='/' onClick={logout} className="nav-link btn btn-primary text-light m-2">Logout</Link>:
-                                <Link to='/login' className="nav-link active">Login</Link>
-                                }
-                            </li>
-                                <li className="nav-item dropdown">
+
+                                <li className="nav-item">
+                                    {login ? <Link to='/' onClick={logout} className="nav-link btn btn-primary text-light m-2">Logout</Link> :
+                                        <Link to='/login' className="nav-link active">Login</Link>
+                                    }
+                                </li>
+                                {/* <li className="nav-item dropdown">
                                     <a className="nav-link dropdown-toggle btn btn-secondary text-light m-2" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                                     <div className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <a className="dropdown-item" href="#!">Action</a>
@@ -48,19 +48,19 @@ const HRDashboard = ({children}) => {
                                         <div className="dropdown-divider"></div>
                                         <a className="dropdown-item" href="#!">Something else here</a>
                                     </div>
-                                </li>
+                                </li> */}
                             </ul>
                         </div>
                     </div>
                 </nav>
                 {/* <!-- Page content--> */}
                 <div className="container-fluid">
-                      {children}          
+                    {children}
                 </div>
             </div>
-        </div>:<h1>No Authorized</h1>
+        </div> : <h1>No Authorized</h1>
 
-  )
+    )
 }
 
 export default HRDashboard
