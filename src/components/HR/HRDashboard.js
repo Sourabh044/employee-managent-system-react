@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import UserContext from '../../context/user/userContext';
+import LoadingContext from '../../context/loadingContext';
 
 const HRDashboard = ({ children }) => {
     const { login, logout, account } = useContext(UserContext)
+    const { loading } = useContext(LoadingContext)
     const location = useLocation();
     const handle_sidebar = (e) => {
         e.preventDefault();
@@ -55,7 +57,11 @@ const HRDashboard = ({ children }) => {
                 </nav>
                 {/* <!-- Page content--> */}
                 <div className="container-fluid">
-                    {children}
+                    {!loading ? children : <div class="text-center">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>}
                 </div>
             </div>
         </div> : <h1>No Authorized</h1>

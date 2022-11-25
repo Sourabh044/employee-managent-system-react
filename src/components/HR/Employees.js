@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
-
+import LoadingContext from '../../context/loadingContext';
 const Employees = (props) => {
+  const { setLoading, loading } = useContext(LoadingContext)
   const InitialState = {
     count: null,
     next: "${process.env.REACT_APP_API_URL}api/HR/Employees/",
@@ -57,13 +58,14 @@ const Employees = (props) => {
       dangerMode: true,
     }).then(async (willDelete) => {
       if (willDelete) {
+        // setLoading(true)
         // console.log(id);
         await deleteemployee(id);
         swal("Employee Deleted", { icon: "success" });
       } else {
       }
     });
-    fetchemployee();
+    // fetchemployee();
   };
   return employees.results.length > 0 ? (
     <div>
@@ -123,19 +125,6 @@ const Employees = (props) => {
 
           <li className="page-item"><a style={{ cursor: 'pointer' }} onClick={() => { fetchemployee(employees.previous) }} className={`page-link ${employees.previous == null ? "disabled" : ""}`} >Previous</a></li>
           <li className="page-item">
-            {/* <a className="page-link" onClick={() => {fetchemployee(employees.next)}}>
-              1
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" onClick={fetchemployee}>
-              2
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" onClick={fetchemployee}>
-              3
-            </a> */}
           </li>
           <li className="page-item">
             <a className={`page-link ${employees.next == null ? "disabled" : ""

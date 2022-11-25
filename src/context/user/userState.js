@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+import LoadingContext from "../loadingContext";
 import UserContext from "./userContext";
 
 const UserState = (props) => {
+  const { setLoading } = useContext(LoadingContext);
   const [login, setLogin] = useState(false);
   const [account, setAccount] = useState(0);
   const [token, setToken] = useState('')
@@ -42,31 +44,35 @@ const UserState = (props) => {
         username: credentials.email,
         password: credentials.password,
       }),
-    }).then(response => response.json()).then(responseJson => {
-
-      if (!responseJson.token) {
-        return swal({
-          title: "Invalid Credentials",
-          text: "Username or Password not correct",
-          icon: "info",
-          button: "Login again",
-        });
-      }
-      setToken(responseJson.token);
-      setAccount(responseJson.account);
-      localStorage.setItem("token", responseJson.token);
-      localStorage.setItem("id", responseJson.user_id);
-      localStorage.setItem('account', responseJson.account)
-      localStorage.setItem("username", responseJson.username);
-      localStorage.setItem("login", "true");
-      setLogin(true);
-      return swal({
-        title: "Login Successfull",
-        text: `Welcome ${responseJson.username}`,
-        icon: "success",
-        button: "Continue",
-      });
     })
+      .then(response => response.json()).then(responseJson => {
+
+        if (!responseJson.token) {
+          return swal({
+            title: "Invalid Credentials",
+            text: "Username or Password not correct",
+            icon: "error",
+            button: "Login again",
+          });
+        }
+        setLoading(false)
+        setToken(responseJson.token);
+        setAccount(responseJson.account);
+        localStorage.setItem("token", responseJson.token);
+        localStorage.setItem("id", responseJson.user_id);
+        localStorage.setItem('account', responseJson.account)
+        localStorage.setItem("username", responseJson.username);
+        localStorage.setItem("login", "true");
+        setLogin(true);
+        return swal({
+          title: "Login Successfull",
+          text: `Welcome ${localStorage.getItem('username')}`,
+          icon: "success",
+          button: "Continue",
+        }).then(() => {
+          setLoading(false)
+        })
+      })
 
   };
 

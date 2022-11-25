@@ -1,11 +1,13 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import UserContext from '../../context/user/userContext'
-import { Navigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom';
+import LoadingContext from '../../context/loadingContext';
 // import script from './scripts'
 
 const Employeedashboard = ({ children }) => {
     const { login, logout, account } = useContext(UserContext)
+    const { loading } = useContext(LoadingContext)
     const handle_sidebar = (e) => {
         e.preventDefault();
         document.body.classList.toggle('sb-sidenav-toggled');
@@ -51,7 +53,11 @@ const Employeedashboard = ({ children }) => {
                 </nav>
                 {/* <!-- Page content--> */}
                 <div className="container-fluid">
-                    {children}
+                    {!loading ? children : <div class="text-center">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>}
                 </div>
             </div>
         </div> : <h1>No Authorized</h1>

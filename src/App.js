@@ -15,40 +15,52 @@ import Leaves from './components/Employee/Leaves';
 import LeavesList from './components/HR/LeavesList';
 import SingleLeave from './components/HR/SingleLeave';
 import Profile from './components/Profile';
+import { Toast } from 'bootstrap';
+import LoadingState from './context/loadingState';
 
 function App() {
   const [loading, setLoading] = useState(false);
+  const [toast, setToast] = useState(false);
+
+  const showToast = (message) => {
+    setToast({
+      msg: message,
+    })
+    setTimeout(() => {
+      setToast(null)
+
+    }, 1500);
+
+
+  }
   return (
     <div className="App">
-      {!loading ?
+
+      <LoadingState>
         <UserState>
+          {/* <Toast toast={toast} /> */}
           <Routes>
-            <Route path='/' element={<Login />}></Route>
+            <Route path='/' element={<Login showToast={showToast} />}></Route>
             {/* HR Urls Here */}
-            <Route path='/hr' element={<HRDashboard><Home /></HRDashboard>} />
-            <Route path='/hr/employees' element={<HRDashboard ><Employees /></HRDashboard>} />
-            <Route path='/hr/edit/:id' element={<HRDashboard><EmployeeEdit /></HRDashboard>} />
-            <Route path='/hr/add/' element={<HRDashboard><AddEmployee /></HRDashboard>} />
-            <Route path='/hr/leaves/' element={<HRDashboard><LeavesList /></HRDashboard>} />
-            <Route path='/hr/leave/:id' element={<HRDashboard><SingleLeave /></HRDashboard>} />
-            <Route path='/hr/profile/' element={<HRDashboard><Profile type='HR/Employees' /></HRDashboard>} />
+            <Route path='/hr' element={<HRDashboard><Home setLoading={setLoading} showToast={showToast} /></HRDashboard>} />
+            <Route path='/hr/employees' element={<HRDashboard ><Employees setLoading={setLoading} showToast={showToast} /></HRDashboard>} />
+            <Route path='/hr/edit/:id' element={<HRDashboard><EmployeeEdit setLoading={setLoading} showToast={showToast} /></HRDashboard>} />
+            <Route path='/hr/add/' element={<HRDashboard><AddEmployee setLoading={setLoading} showToast={showToast} /></HRDashboard>} />
+            <Route path='/hr/leaves/' element={<HRDashboard><LeavesList setLoading={setLoading} showToast={showToast} /></HRDashboard>} />
+            <Route path='/hr/leave/:id' element={<HRDashboard><SingleLeave setLoading={setLoading} showToast={showToast} /></HRDashboard>} />
+            <Route path='/hr/profile/' element={<HRDashboard><Profile type='HR/Employees' setLoading={setLoading} showToast={showToast} /></HRDashboard>} />
 
             {/* Employee Urls Here  */}
 
-            <Route path='/employee' element={<Employeedashboard><Home /></Employeedashboard>} />
-            <Route path='/employee/leaves/' element={<Employeedashboard><Leaves /></Employeedashboard>} />
-            <Route path='/employee/apply-leave/' element={<Employeedashboard><LeaveApply /></Employeedashboard>} />
-            <Route path='/employee/profile/' element={<Employeedashboard><Profile type='EMP' /></Employeedashboard>} />
+            <Route path='/employee' element={<Employeedashboard><Home setLoading={setLoading} showToast={showToast} /></Employeedashboard>} />
+            <Route path='/employee/leaves/' element={<Employeedashboard><Leaves setLoading={setLoading} showToast={showToast} /></Employeedashboard>} />
+            <Route path='/employee/apply-leave/' element={<Employeedashboard><LeaveApply setLoading={setLoading} showToast={showToast} /></Employeedashboard>} />
+            <Route path='/employee/profile/' element={<Employeedashboard><Profile type='EMP' setLoading={setLoading} showToast={showToast} /></Employeedashboard>} />
           </Routes>
-        </UserState> :
-        <div class="container my-3 rounded h-75 mx-auto border border-round d-flex align-items-center" style={{ width: '480px' }}>
-          <strong>Loading...</strong>
-          <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
-        </div>}
-
+        </UserState>
+      </LoadingState>
     </div>
   );
-  // }
 }
 
 export default App;
