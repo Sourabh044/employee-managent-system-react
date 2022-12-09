@@ -69,7 +69,7 @@ const SingleLeave = () => {
   };
 
   return (
-    <div>
+    <div className="animate__animated animate__fadeInDown">
       <h1>
         Leave details of Employee {leave.name}, <br />
         Date:{leave.date}

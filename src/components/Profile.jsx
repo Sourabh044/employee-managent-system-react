@@ -130,7 +130,7 @@ const Profile = (props) => {
     setEmployeeProfile({ ...employeeprofile, [e.target.name]: e.target.value });
   };
   return (
-    <div>
+    <div className="animate__animated animate__fadeInDown">
       <h1>
         Details of Employee: {employeeuser.first_name}, ID: {id}
       </h1>

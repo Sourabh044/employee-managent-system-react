@@ -20,7 +20,7 @@ const Login = (props) => {
   };
 
 
-  return (!loading ? <div className='my-3 rounded container mx-auto border border-round' style={{ 'width': '450px' }}>
+  return (!loading ? <div className='my-3 rounded container mx-auto border border-round animate__animated animate__zoomIn' style={{ 'width': '450px' }}>
     <h1 className="text-primary text-center m-3">EMS</h1>
     <div className="d-flex justify-content-center">
       <a className='text-dark' href='https://github.com/Sourabh044/' rel="noreferrer" target='_blank' ><h1><i className="fa-brands fa-github m-2"></i></h1></a>

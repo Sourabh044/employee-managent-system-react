@@ -4,7 +4,7 @@ import React from 'react'
 const Home = (props) => {
 
   return (
-    <div className='my-2'>
+    <div className='my-2 animate__animated animate__bounce'>
       {/* <hr /> */}
       <h1 className="text-center text-primary my-2">Hello! {localStorage.getItem('username')}</h1>
       <hr />

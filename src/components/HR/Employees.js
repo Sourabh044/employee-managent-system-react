@@ -68,7 +68,7 @@ const Employees = (props) => {
     // fetchemployee();
   };
   return employees.results.length > 0 ? (
-    <div>
+    <div className="animate__animated animate__fadeInDown">
       <h1 className='m-2 text-center'>Employees Here</h1>
       <span>
         <Link to="/hr/add/" className="btn btn-primary m-2 float-end">

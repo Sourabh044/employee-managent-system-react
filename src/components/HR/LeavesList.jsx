@@ -66,7 +66,7 @@ const LeavesList = () => {
     fetchleaves(); // eslint-disable-next-line
   }, []);
   return leaves.results.length > 0 ? (
-    <div>
+    <div className="animate__animated animate__fadeInDown">
       <h1 className="m-2 text-center">Leaves Here</h1>
       <span>
         <Link

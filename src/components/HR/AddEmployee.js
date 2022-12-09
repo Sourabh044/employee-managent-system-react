@@ -75,7 +75,7 @@ const AddEmployee = () => {
         Navigate(`/hr/edit/${json.id}`)
     }
     return (
-        <>
+        <div className='animate__animated animate__fadeInRight' >
             <h1>Add New Employee</h1>
             <hr />
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 " >
@@ -163,7 +163,7 @@ const AddEmployee = () => {
                     <button type="submit" className="btn btn-primary mb-4" onClick={addemployee}>Add</button>
                 </form>
             </div>
-        </>
+        </div>
     )
 }
 
