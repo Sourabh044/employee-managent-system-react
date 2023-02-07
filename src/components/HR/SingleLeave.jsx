@@ -5,11 +5,12 @@ const SingleLeave = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [leave, setLeave] = useState({
+    id: "",
     name: "",
     date: "",
-    reason: "",
-    type: 2,
-    approved: false,
+    cause: "",
+    leave_type: "",
+    status: false,
   });
   const fetchleave = async () => {
     const response = await fetch(
@@ -28,6 +29,7 @@ const SingleLeave = () => {
     setLeave(json);
   };
   const updateleave = async () => {
+    console.log(leave);
     const response = await fetch(
       `${process.env.REACT_APP_API_URL}api/HR/Leaves/${params.id}/`,
       {
@@ -46,7 +48,12 @@ const SingleLeave = () => {
       })
       .then(async () => {
         await swal({
-          title: leave.approved ? "Leave Approved" : "Leave Denied",
+          title:
+            leave.status == "Approved"
+              ? "Leave Approved"
+              : leave.status == "Unapproved"
+              ? "Leave Unapproved"
+              : "Leave Updated",
           text: ``,
           icon: leave.approved ? "success" : "info",
           button: "Okay",
@@ -75,20 +82,24 @@ const SingleLeave = () => {
         Date:{leave.date}
       </h1>
       <hr />
-      <form>
+      <form onSubmit={handleclick}>
         <div className="mb-3">
           <label htmlFor="approved" className="form-label">
             Approved:{" "}
           </label>
-          <input
-            type="checkbox"
-            className="form-check-input"
-            onChange={() => setLeave({ ...leave, approved: !leave.approved })}
-            value={leave.approved}
-            name="approved"
-            id="approved"
-            checked={leave.approved}
-          />
+          <select
+            class="form-select form-select-lg mb-3"
+            value={leave.status}
+            aria-label=".form-select-lg example"
+            onChange={(status) => {
+              setLeave({ ...leave, status: status.target.value });
+            }}
+          >
+            {/* <option>Open this select menu</option> */}
+            <option value="Approved">Approved</option>
+            <option value="Pending">Pending</option>
+            <option value="Unapproved">Unapproved</option>
+          </select>
         </div>
         <div className="mb-3">
           <label htmlFor="date" className="form-label">
@@ -103,35 +114,36 @@ const SingleLeave = () => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="reason" className="form-label">
-            Reason:
+          <label htmlFor="cause" className="form-label">
+            Cause:
           </label>
           <input
             type="text"
             className="form-control"
-            name="reason"
-            value={leave.reason}
-            id="reason"
+            name="cause"
+            value={leave.cause}
+            id="cause"
           />
         </div>
         <div className="mb-3">
           <label htmlFor="approved" className="form-label">
             Type
           </label>
-          <input
-            type="number"
-            value={leave.type}
-            className="form-control"
-            max={2}
-            min={1}
-            name="type"
-            id="type"
-          />
+          <select
+            class="form-select form-select-lg mb-3"
+            value={leave.leave_type}
+            aria-label=".form-select-lg example"
+            onChange={(leave_type) => {
+              setLeave({ ...leave, leave_type: leave_type.target.value });
+            }}
+          >
+            {/* <option>Open this select menu</option> */}
+            <option value="Short">Short</option>
+            <option value="Half Day">Half Day</option>
+            <option value="Long leave">Long leave</option>
+          </select>
         </div>
-        <button
-          className="my-1 btn btn-primary text-center"
-          onClick={handleclick}
-        >
+        <button className="my-1 btn btn-primary text-center" type="submit">
           Update
         </button>
       </form>

@@ -11,7 +11,7 @@ const HRDashboard = ({ children }) => {
         e.preventDefault();
         document.body.classList.toggle('sb-sidenav-toggled');
         localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
-        console.log(location.pathname)
+        // console.log(location.pathname)
     }
 
     return (!login ? <Navigate to='/' /> : account === 1 ?

@@ -12,45 +12,45 @@ const Profile = (props) => {
     }
   });
   const intialState = {
-    user: {
-      id: "",
-      first_name: "",
-      middle_name: "",
-      last_name: "",
-      username: "",
-      email: "",
-      phone_number: "",
-      account: "",
-    },
-    userprofile: {
-      permanent_address: "s",
-      permanent_country: "s",
-      permanent_state: "s",
-      permanent_city: "s",
-      permanent_pincode: "s",
-      present_address: "s",
-      present_country: "s",
-      present_state: "s",
-      present_city: "s",
-      present_pincode: "s",
-      gender: "",
-      emergency_contact: "",
-      date_of_joining: "s",
-      date_of_termination: "",
-      pan_card_no: "",
-      aadhaar_card: "",
-      blood_group: "",
-      date_of_birth: "",
-    },
+    // user: {
+    id: "",
+    first_name: "",
+    middle_name: "",
+    last_name: "",
+    username: "",
+    email: "",
+    phone_number: "",
+    account: "",
+    // },
+    // userprofile: {
+    //   permanent_address: "s",
+    //   permanent_country: "s",
+    //   permanent_state: "s",
+    //   permanent_city: "s",
+    //   permanent_pincode: "s",
+    //   present_address: "s",
+    //   present_country: "s",
+    //   present_state: "s",
+    //   present_city: "s",
+    //   present_pincode: "s",
+    //   gender: "",
+    //   emergency_contact: "",
+    //   date_of_joining: "s",
+    //   date_of_termination: "",
+    //   pan_card_no: "",
+    //   aadhaar_card: "",
+    //   blood_group: "",
+    //   date_of_birth: "",
+    // },
   };
 
-  const [employeeuser, setEmployeeUser] = useState(intialState.user);
-  const [employeeprofile, setEmployeeProfile] = useState(
-    intialState.userprofile
-  );
+  const [employeeuser, setEmployeeUser] = useState(intialState);
+  // const [employeeprofile, setEmployeeProfile] = useState(
+  //   intialState.userprofile
+  // );
   const fetchemployee = async () => {
     const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/api/${props.type}/${id}/`,
+      `${process.env.REACT_APP_API_URL}api/${props.type}/${id}/`,
       {
         method: "GET",
         headers: {
@@ -62,13 +62,13 @@ const Profile = (props) => {
     );
     const json = await response.json();
     console.log(json);
-    setEmployeeUser(json.user);
-    setEmployeeProfile(json.userprofile);
+    setEmployeeUser(json);
+    // setEmployeeProfile(json.userprofile);
   };
 
   const updateemployee = async (e) => {
     e.preventDefault();
-    const emp = Object.assign({}, employeeuser, employeeprofile);
+    const emp = Object.assign({}, employeeuser);
     console.log(emp);
     const response = await fetch(
       `${process.env.REACT_APP_API_URL}/api/${props.type}/${id}/`,
@@ -84,8 +84,8 @@ const Profile = (props) => {
     );
     const json = await response.json();
     console.log(json);
-    setEmployeeUser(json.user);
-    setEmployeeProfile(json.userprofile);
+    setEmployeeUser(json);
+    // setEmployeeProfile(json.userprofile);
     swal({
       title: "Details",
       text: "Employee Updated",
@@ -96,7 +96,7 @@ const Profile = (props) => {
 
   const deleteemployee = async (id) => {
     const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/api/${props.type}/${id}/`,
+      `${process.env.REACT_APP_API_URL}api/${props.type}/${id}/`,
       {
         method: "DELETE",
         headers: {
@@ -240,7 +240,7 @@ const Profile = (props) => {
               min={1}
             />
           </div>
-          <div className="mb-3">
+          {/* <div className="mb-3">
             <label htmlFor="Date of birth" className="form-label">
               Date Of Birth
             </label>
@@ -415,7 +415,7 @@ const Profile = (props) => {
               name="blood_group"
               onChange={onChangeUserProfile}
             />
-          </div>
+          </div> */}
           <button
             type="submit"
             className="btn btn-primary mb-4"

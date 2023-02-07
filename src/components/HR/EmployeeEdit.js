@@ -1,13 +1,15 @@
+import { clippingParents } from '@popperjs/core';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import swal from 'sweetalert';
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 const EmployeeEdit = (props) => {
   const Navigate = useNavigate();
   const params = useParams();
   const intialState = {
-    user: {
       id: '',
       first_name: "",
       middle_name: "",
@@ -15,31 +17,12 @@ const EmployeeEdit = (props) => {
       username: "",
       email: "",
       phone_number: "",
-      account: ''
-    },
-    userprofile: {
-      permanent_address: "s",
-      permanent_country: "s",
-      permanent_state: "s",
-      permanent_city: "s",
-      permanent_pincode: "s",
-      present_address: "s",
-      present_country: "s",
-      present_state: "s",
-      present_city: "s",
-      present_pincode: "s",
-      gender: '',
-      emergency_contact: '',
-      date_of_joining: "s",
-      date_of_termination: '',
-      pan_card_no: '',
-      aadhaar_card: '',
-      blood_group: '',
-      date_of_birth: ''
-    }
+    role: ''
   }
-  const [employeeuser, setEmployeeUser] = useState(intialState.user);
-  const [employeeprofile, setEmployeeProfile] = useState(intialState.userprofile);
+  // const InitialErrorstate = intialState
+  const [employeeuser, setEmployeeUser] = useState(intialState);
+  const [errors, setErrors] = useState(intialState);
+  // const [employeeprofile, setEmployeeProfile] = useState(intialState.userprofile);
   const fetchemployee = async () => {
     const response = await fetch(`${process.env.REACT_APP_API_URL}api/HR/Employees/${params.id}/`, {
       method: "GET",
@@ -51,14 +34,14 @@ const EmployeeEdit = (props) => {
     });
     const json = await response.json();
     console.log(json);
-    setEmployeeUser(json.user);
-    setEmployeeProfile(json.userprofile);
+    setEmployeeUser(json);
+    // setEmployeeProfile(json.userprofile);
   };
 
   const updateemployee = async (e) => {
     e.preventDefault();
-    const emp = Object.assign({}, employeeuser, employeeprofile)
-    console.log(emp)
+    const emp = Object.assign({}, employeeuser,)
+    // console.log(emp)
     const response = await fetch(`${process.env.REACT_APP_API_URL}api/HR/Employees/${params.id}/`, {
       method: "PATCH",
       headers: {
@@ -69,15 +52,32 @@ const EmployeeEdit = (props) => {
       body: JSON.stringify(emp),
     });
     const json = await response.json();
-    console.log(json);
-    setEmployeeUser(json.user);
-    setEmployeeProfile(json.userprofile);
-    swal({
-      title: "Details",
-      text: "Employee Updated",
-      icon: "success",
-      button: "Okay",
-    });
+    // console.log(Object.keys(json))
+
+    console.log(response.status)
+    if (response.status !== 200) {
+      for (const [key, value] of Object.entries(json)) {
+        setErrors({ ...errors, [key]: value })
+      }
+      // console.log(errors)
+      swal({
+        title: "Please Enter correct details",
+        text: 'Errors',
+        icon: "error",
+        button: "Okay",
+      });
+    }
+    else {
+      // console.log(json);
+      setEmployeeUser(json);
+      // setEmployeeProfile(json.userprofile);
+      swal({
+        title: "Details",
+        text: "Employee Updated",
+        icon: "success",
+        button: "Okay",
+      });
+    }
   };
 
   const deleteemployee = async (id) => {
@@ -142,37 +142,51 @@ const EmployeeEdit = (props) => {
       <hr />
       <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 " >
         {/* <a href="{% url 'delete-employee' employee.id %}" onclick="return confirm('Are you sure you want to delete this employee?')" className="btn btn-danger m-2 float-end" name="delbutton" data-url="{% url 'delete-employee' employee.id %}"> <i className="fa fa-solid fa-user-slash"></i></a> */}
-        <form>
+        <form className='needs-validation' onSubmit={updateemployee}>
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
             <input type="email" value={employeeuser.email === null ? '' : employeeuser.email} className="form-control" name="email" onChange={onChangeUser}></input>
-            <div name="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+            {errors.email === '' ? '' : <div className="text-danger m-1" >{errors.email}</div>}
+            <div name="emailHelp" className="form-text">We'll never share your email with anyone else.{errors.email}</div>
           </div>
           <div className="mb-3">
             <label htmlFor="first_name" className="form-label">First name</label>
             <input type="text" value={employeeuser.first_name === null ? '' : employeeuser.first_name} className="form-control" name="first_name" onChange={onChangeUser} />
+            <div name="firstname" className="invalid-feedback" >{errors.first_name}</div>
           </div>
-          <div className="mb-3">
+          {/* <div className="mb-3">
             <label htmlFor="middle Name" className="form-label">Middle Name</label>
             <input type="text" value={employeeuser.middle_name === null ? '' : employeeuser.middle_name} className="form-control" name="middle_name" onChange={onChangeUser} />
-          </div>
+            <div name="firstname" className="invalid-feedback" >{errors.middle_name}</div>
+          </div> */}
           <div className="mb-3">
             <label htmlFor="Last name" className="form-label">Last Name</label>
             <input type="text" value={employeeuser.last_name === null ? '' : employeeuser.last_name} className="form-control" name="last_name" onChange={onChangeUser} />
+            <div name="firstname" className="invalid-feedback" >{errors.last_name}</div>
           </div>
           <div className="mb-3">
             <label htmlFor="Username" className="form-label">Username</label>
             <input type="text" value={employeeuser.username === null ? '' : employeeuser.username} className="form-control" name="username" onChange={onChangeUser} />
+            <div name="firstname" className="invalid-feedback" >{errors.username}</div>
           </div>
           <div className="mb-3">
-            <label htmlFor="Phone Number" className="form-label">Phone Number</label>
-            <input type="phone" value={employeeuser.phone_number === null ? '' : employeeuser.phone_number} className="form-control" name="phone_number" onChange={onChangeUser} />
+            <label htmlFor="phone_number" className="form-label">Phone Number</label>
+            <PhoneInput inputProps={{ disableDropdown: true, name: 'phone_number' }} country={'in'} value={employeeuser.phone_number === null ? '' : employeeuser.phone_number} onChange={phone => setEmployeeUser({ ...employeeuser, phone_number: phone })}
+            />
+            {/* <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder='123-456-7890' value={employeeuser.phone_number === null ? '' : employeeuser.phone_number} className="form-control" name="phone_number" onChange={onChangeUser} /> */}
+            <div name="firstname" className="invalid-feedback" >{errors.phone_number}</div>
           </div>
           <div className="mb-3">
-            <label htmlFor="Account" className="form-label">Account</label>
-            <input type="text" value={employeeuser.account === null ? '' : employeeuser.account} className="form-control" name="account" onChange={onChangeUser} />
+            <label htmlFor="role" className="form-label">role</label>
+            <select class="form-select form-select-lg mb-3" value={employeeuser.role} aria-label=".form-select-lg example" onChange={role => { setEmployeeUser({ ...employeeuser, role: role.target.value }) }}>
+              <option value='' >Open this select menu</option>
+              <option value="1">HR</option>
+              <option value="2">Employee</option>
+            </select>
+            {/* <input type="text" value={employeeuser.role === null ? '' : employeeuser.role} className="form-control" name="role" onChange={onChangeUser} /> */}
+            <div name="firstname" className="invalid-feedback" >{errors.role}</div>
           </div>
-          <div className="mb-3">
+          {/* <div className="mb-3">
             <label htmlFor="Date of birth" className="form-label">Date Of Birth</label>
             <input type="date" value={employeeprofile.date_of_birth === '' | null ? '' : getdate(employeeprofile.date_of_birth)} className="form-control" name="date_of_birth" onChange={onChangeUserProfile} />
           </div>
@@ -215,8 +229,8 @@ const EmployeeEdit = (props) => {
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">Blood Group</label>
             <input type="text" value={employeeprofile.blood_group === null ? '' : employeeprofile.blood_group} className="form-control" name="blood_group" onChange={onChangeUserProfile} />
-          </div>
-          <button type="submit" className="btn btn-primary mb-4" onClick={updateemployee}>Update</button>
+          </div> */}
+          <button type="submit" className="btn btn-primary mb-4">Update</button>
         </form>
       </div>
     </>

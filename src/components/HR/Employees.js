@@ -68,8 +68,9 @@ const Employees = (props) => {
     // fetchemployee();
   };
   return employees.results.length > 0 ? (
-    <div className="animate__animated animate__fadeInDown">
+    <div className="animate__animated animate__fadeIn">
       <h1 className='m-2 text-center'>Employees Here</h1>
+      <span>Total Users: {employees.count}</span>
       <span>
         <Link to="/hr/add/" className="btn btn-primary m-2 float-end">
           {" "}
@@ -78,16 +79,16 @@ const Employees = (props) => {
       </span>
       <hr />
       <div>
-        <table className="table" style={{ overflow: "scroll", height: '500px' }}>
+        <table className="table table-hover table-light table-striped  table-bordered" style={{ overflow: "scroll", height: '500px' }}>
           <thead>
             <tr>
               <th scope="col">id</th>
-              <th scope="col">First</th>
-              <th scope="col">Middle</th>
-              <th scope="col">Last</th>
+              <th scope="col">First name</th>
+              {/* <th scope="col">Middle</th> */}
+              <th scope="col">Last name</th>
               <th scope="col">Email</th>
               <th scope="col">Username</th>
-              <th scope="col">Phone No.</th>
+              {/* <th scope="col">Phone No.</th> */}
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -97,22 +98,22 @@ const Employees = (props) => {
                 <tr key={employees.id}>
                   <th scope="row">{employees.id}</th>
                   <td scope="row">{employees.first_name}</td>
-                  <td>{employees.middle_name}</td>
+                  {/* <td>{employees.middle_name}</td> */}
                   <td>{employees.last_name}</td>
-                  <td>{employees.email}</td>
+                  <td>{employees.email ? employees.email : 'No Email'}</td>
                   <td>{employees.username}</td>
-                  <td>{employees.phone_number}</td>
+                  {/* <td>{employees.phone_number}</td> */}
                   <td>
                     <Link to={{ pathname: `/hr/edit/${employees.id}` }}>
                       <i style={{ cursor: 'pointer' }} className="fa fa-user-pen "></i>
                     </Link>{" "}
-                    |{" "}
-                    <i
+                    {/* |{" "} */}
+                    {/* <i
                       onClick={(e) =>
                         handledelete(employees.id, employees.first_name)
                       }
                       style={{ cursor: 'pointer' }} className="fa fa-solid fa-user-slash text-danger"
-                    ></i>
+                    ></i> */}
                   </td>
                 </tr>
               );

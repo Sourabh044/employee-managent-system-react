@@ -1,3 +1,4 @@
+import { clippingParents } from "@popperjs/core";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
@@ -46,7 +47,7 @@ const UserState = (props) => {
       }),
     })
       .then(response => response.json()).then(responseJson => {
-
+        console.log(responseJson)
         if (!responseJson.token) {
           return swal({
             title: "Invalid Credentials",
