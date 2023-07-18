@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import LoadingContext from '../../context/loadingContext';
+
+
 const Employees = (props) => {
   const { setLoading, loading } = useContext(LoadingContext)
   const InitialState = {

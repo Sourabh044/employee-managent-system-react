@@ -21,11 +21,11 @@ const Login = (props) => {
 
 
   return (!loading ? <div className='my-3 rounded container mx-auto border border-round animate__animated animate__zoomInRight' style={{ 'width': '450px' }}>
-    <h1 className="text-primary text-center m-3">EMS</h1>
+    <h1 className="text-primary m-3">Employee Management System</h1>
     <div className="d-flex justify-content-center">
-      <a className='text-dark' href='https://github.com/Sourabh044/' rel="noreferrer" target='_blank' ><h1><i className="fa-brands fa-github m-2"></i></h1></a>
-      <h1 className="text-muted">|</h1>
-      <a className='text-dark' href='https://www.linkedin.com/in/sourabh044/' rel="noreferrer" target='_blank' ><h1><i className="fa-brands fa-linkedin m-2"></i></h1></a>
+      {/* <a className='text-dark' href='https://github.com/Sourabh044/' rel="noreferrer" target='_blank' ><h1><i className="fa-brands fa-github m-2"></i></h1></a> */}
+      {/* <h1 className="text-muted">|</h1> */}
+      {/* <a className='text-dark' href='https://www.linkedin.com/in/sourabh044/' rel="noreferrer" target='_blank' ><h1><i className="fa-brands fa-linkedin m-2"></i></h1></a> */}
     </div>
     <hr style={{ 'fontWeight': 'bold' }} />
     <div className="container">
@@ -43,9 +43,9 @@ const Login = (props) => {
       </form>
     </div>
   </div> :
-    <div class="text-center">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
+    <div className="text-center">
+      <div className="spinner-border" role="status">
+        <span className="visually-hidden">Loading...</span>
       </div>
     </div>)
 

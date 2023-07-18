@@ -88,7 +88,7 @@ const SingleLeave = () => {
             Approved:{" "}
           </label>
           <select
-            class="form-select form-select-lg mb-3"
+            className="form-select form-select-lg mb-3"
             value={leave.status}
             aria-label=".form-select-lg example"
             onChange={(status) => {
@@ -130,7 +130,7 @@ const SingleLeave = () => {
             Type
           </label>
           <select
-            class="form-select form-select-lg mb-3"
+            className="form-select form-select-lg mb-3"
             value={leave.leave_type}
             aria-label=".form-select-lg example"
             onChange={(leave_type) => {

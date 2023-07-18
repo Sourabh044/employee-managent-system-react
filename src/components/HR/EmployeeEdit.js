@@ -1,4 +1,3 @@
-import { clippingParents } from '@popperjs/core';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
@@ -178,7 +177,7 @@ const EmployeeEdit = (props) => {
           </div>
           <div className="mb-3">
             <label htmlFor="role" className="form-label">role</label>
-            <select class="form-select form-select-lg mb-3" value={employeeuser.role} aria-label=".form-select-lg example" onChange={role => { setEmployeeUser({ ...employeeuser, role: role.target.value }) }}>
+            <select className="form-select form-select-lg mb-3" value={employeeuser.role} aria-label=".form-select-lg example" onChange={role => { setEmployeeUser({ ...employeeuser, role: role.target.value }) }}>
               <option value='' >Open this select menu</option>
               <option value="1">HR</option>
               <option value="2">Employee</option>

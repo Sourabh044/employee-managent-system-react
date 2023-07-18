@@ -15,6 +15,7 @@ import Leaves from './components/Employee/Leaves';
 import LeavesList from './components/HR/LeavesList';
 import SingleLeave from './components/HR/SingleLeave';
 import Profile from './components/Profile';
+import Attendance from './components/HR/Attendance';
 import { Toast } from 'bootstrap';
 import LoadingState from './context/loadingState';
 
@@ -49,6 +50,7 @@ function App() {
             <Route path='/hr/leaves/' element={<HRDashboard><LeavesList setLoading={setLoading} showToast={showToast} /></HRDashboard>} />
             <Route path='/hr/leave/:id' element={<HRDashboard><SingleLeave setLoading={setLoading} showToast={showToast} /></HRDashboard>} />
             <Route path='/hr/profile/' element={<HRDashboard><Profile type='HR/Employees' setLoading={setLoading} showToast={showToast} /></HRDashboard>} />
+            <Route path='/hr/attendance/' element={<HRDashboard><Attendance></Attendance></HRDashboard>} />
 
             {/* Employee Urls Here  */}
 

@@ -12,7 +12,7 @@ const UserState = (props) => {
   const [token, setToken] = useState('')
   const navigate = useNavigate();
   useEffect(() => {
-    // console.log('account', account);
+    console.log('account', account);
     if (account === 2) {
       // console.log(account);
       // console.log(response);
@@ -24,10 +24,11 @@ const UserState = (props) => {
     }
   }, [account]);
 
-  useEffect(() => {
-    // console.log('login', login);
+  // useEffect(() => {
+  //   // console.log('login', login);
 
-  }, [login]);
+  // }, [login]);
+
   useEffect(() => {
     // console.log('login', login);
     localStorage.setItem('token', token)
@@ -35,7 +36,7 @@ const UserState = (props) => {
 
   // User login function
   const auth = async (credentials) => {
-    await fetch(process.env.REACT_APP_API_URL + "token/", {
+    await fetch(process.env.REACT_APP_API_URL + "rest-auth/login/", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -48,7 +49,7 @@ const UserState = (props) => {
     })
       .then(response => response.json()).then(responseJson => {
         console.log(responseJson)
-        if (!responseJson.token) {
+        if (!responseJson.key) {
           return swal({
             title: "Invalid Credentials",
             text: "Username or Password not correct",
@@ -57,12 +58,12 @@ const UserState = (props) => {
           });
         }
         setLoading(false)
-        setToken(responseJson.token);
-        setAccount(responseJson.account);
-        localStorage.setItem("token", responseJson.token);
-        localStorage.setItem("id", responseJson.user_id);
-        localStorage.setItem('account', responseJson.account)
-        localStorage.setItem("username", responseJson.username);
+        setToken(responseJson.key);
+        setAccount(responseJson.user_details.role);
+        localStorage.setItem("token", responseJson.key);
+        localStorage.setItem("id", responseJson.user_details.pk);
+        localStorage.setItem('role', responseJson.user_details.role);
+        localStorage.setItem("username", responseJson.user_details.username);
         localStorage.setItem("login", "true");
         setLogin(true);
         return swal({

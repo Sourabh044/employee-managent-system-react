@@ -1,16 +1,14 @@
 import React from 'react'
-// import { Link } from 'react-router-dom'
-// import { useLocation } from 'react-router-dom'
+import { DateRangePicker, Button } from "rsuite";
+import 'rsuite/dist/rsuite.min.css';
 const Home = (props) => {
 
   return (
     <div className='my-2 animate__animated animate__bounce'>
-      {/* <hr /> */}
       <h1 className="text-center text-primary my-2">Hello! {localStorage.getItem('username')}</h1>
       <hr />
       <h1 className='text-center'>Manage your account here</h1>
-      {/* <Link to="login">Click To login.</Link> */}
-      <br />
+      <hr />
     </div>
   )
 }
